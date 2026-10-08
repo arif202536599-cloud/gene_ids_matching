@@ -9,13 +9,13 @@ Match a TBtools export to an MSU release 7 japonica rice GFF3 and protein FASTA.
 1. Click **Open in Colab** above. A CPU runtime is sufficient.
 2. Run the cells from top to bottom.
 3. Upload one file at each prompt:
-   - **TBtools export:** `Final_matched_genes.txt`
+   - **Selection file:** `Final_matched_genes.txt`, an ID list, a headered CSV/TSV, or protein FASTA
    - **Original annotation:** `osa1_r7.all_models.gff3` or `.gff3.gz`
    - **Protein FASTA:** `final_protein_ids.txt` with FASTA `>` headers
 4. Review the match summary and any reported conflicts.
 5. Download the ZIP produced by the last cell.
 
-Use the same organism and annotation release for all inputs. The expected TBtools export begins with chromosome, protein/model ID, start, end, and strand. Isoforms and the original row order are retained.
+Use the same organism and annotation release for all inputs. Coordinate exports without headers begin with chromosome, protein/model ID, start, end, and strand. The reader also detects one MSU ID per line, FASTA headers, and CSV/TSV files with a named model/gene ID column. When coordinates are absent, they are looked up in the GFF3. Gene-level IDs without coordinates expand to every annotated isoform; requested IDs are recorded in the audit. Input order is retained.
 
 ## Results
 
@@ -40,4 +40,4 @@ Missing or conflicting values are marked unavailable rather than guessed. Common
 - [Biopython amino-acid masses](https://github.com/biopython/biopython/blob/master/Bio/Data/IUPACData.py)
 - [Bjellqvist pI parameters in Biopython](https://github.com/biopython/biopython/blob/master/Bio/SeqUtils/IsoelectricPoint.py)
 
-The matching and calculation core was tested locally against 65 protein models from 56 gene loci. Colab upload/download controls must be run inside Colab.
+The matching and calculation core was tested locally against 65 protein models from 56 gene loci. Additional reader tests cover plain/headered ID lists, FASTA headers, CSV/TSV tables, gene-to-isoform expansion and invalid-file handling. Colab upload/download controls must be run inside Colab.
